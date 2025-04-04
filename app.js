@@ -6,6 +6,8 @@ let nowHour = nowTime.getHours();
 let nowMin = nowTime.getMinutes();
 let nowSec = nowTime.getSeconds();
 
+let time = [];
+
 const Hour = document.getElementById('Hour');
 const Min = document.getElementById('Min');
 const Sec = document.getElementById('Sec');
@@ -28,19 +30,36 @@ window.setInterval(() => {
     nowMin = nowTime.getMinutes();
     nowSec = nowTime.getSeconds();
 
-    
-    if (timeNote == '24') {
-        Hour.textContent = nowHour;
-        Min.textContent = nowMin;
-        Sec.textContent = nowSec;
-    } else if (timeNote == '12') {
-        if(nowHour > 12) {
-            Hour.textContent = nowHour - 12;
+    time = [nowHour, nowMin, nowSec];
+
+    console.log(time);
+
+    const timeText = time.map(timeElem => {
+        if (timeElem < 10) {
+            return timeElem = '0' + timeElem;
         } else {
-            Hour.textContent = nowHour;
+            return timeElem = String(timeElem);
         }
-        Min.textContent = nowMin;
-        Sec.textContent = nowSec;
+    });
+
+    console.log(timeText);
+
+    if (timeNote == '24') {
+        
+        Hour.textContent = timeText[0];
+        Min.textContent = timeText[1];
+        Sec.textContent = timeText[2];
+    } else if (timeNote == '12') {
+        if(timeText[0] > 12) {
+            Hour.textContent = timeText[0] - 12;
+            if (Hour.textContent < 10) {
+                Hour.textContent = '0' + Hour.textContent;
+            }
+        } else {
+            Hour.textContent = timeText[0];
+        }
+        Min.textContent = timeText[1];
+        Sec.textContent = timeText[2];
     }
 }, 1000);
 // console.log(nowHour);
