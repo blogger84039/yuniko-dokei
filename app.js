@@ -8,12 +8,24 @@ let nowSec = nowTime.getSeconds();
 
 let time = [];
 
+let timeNoteIn = document.getElementById('timeNote');
+let timeNote = 24;
+
+let hourTime;
+let minTime;
+let secTime;
+
+let hourNumber;
+let minNumber;
+let secNumber;
+
 const Hour = document.getElementById('Hour');
 const Min = document.getElementById('Min');
 const Sec = document.getElementById('Sec');
 
-let timeNoteIn = document.getElementById('timeNote');
-let timeNote = 24;
+const HOURTIME = ['firstHour', 'secondHour'];
+const MINTIME = ['firstMin', 'secondMin'];
+const SECTIME = ['firstSec', 'secondSec'];
 
 timeNoteIn.addEventListener('change', () => {
         for (let i = 0; i < timeNoteIn.length; i++) {
@@ -66,10 +78,6 @@ window.setInterval(() => {
 // console.log(nowMin);
 // console.log(nowSec);
 
-const HOURTIME = ['firstHour', 'secondHour'];
-const MINTIME = ['firstMin', 'secondMin'];
-const SECTIME = ['firstSec', 'secondSec'];
-
 function processTimeUnits(timeString, timeArray, numberArray) {
     console.log(timeString);
     timeArray = timeString;
@@ -78,14 +86,6 @@ function processTimeUnits(timeString, timeArray, numberArray) {
     console.log(numberArray);
     return numberArray;
 }
-
-let hourTime;
-let minTime;
-let secTime;
-
-let hourNumber;
-let minNumber;
-let secNumber;
 
 // console.log(String(nowHour));
 // console.log(String(nowMin));
