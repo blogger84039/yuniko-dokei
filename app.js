@@ -1,7 +1,6 @@
 'use strict';
 
 let nowTime = new Date();
-
 let nowHour = nowTime.getHours();
 let nowMin = nowTime.getMinutes();
 let nowSec = nowTime.getSeconds();
@@ -9,34 +8,21 @@ let nowSec = nowTime.getSeconds();
 let time = [];
 
 let timeNoteIn = document.getElementById('timeNote');
-let timeNote = 24;
-
-let hourTime;
-let minTime;
-let secTime;
-
-let hourNumber;
-let minNumber;
-let secNumber;
+let timeNote = '24'; // 初期値を文字列の '24' にしておくと比較が安全です
 
 const Hour = document.getElementById('Hour');
 const Min = document.getElementById('Min');
 const Sec = document.getElementById('Sec');
 
-const HOURTIME = ['firstHour', 'secondHour'];
-const MINTIME = ['firstMin', 'secondMin'];
-const SECTIME = ['firstSec', 'secondSec'];
+let uniTime = [[null, null], [null, null], [null, null]];
+const unicode = [[null, null], [null, null], [null, null]];
 
 timeNoteIn.addEventListener('change', () => {
-        for (let i = 0; i < timeNoteIn.length; i++) {
-            if (timeNoteIn[i].checked) {
-                timeNote = document.timeForm.timeNoteIn.value;
-            }
-        }
-    }
-)
+    const selectedValue = document.querySelector('input[name="timeNoteIn"]:checked').value;
+    timeNote = selectedValue;
+});
 
-window.setInterval(() => {
+function updateTime() {
     nowTime = new Date();
     nowHour = nowTime.getHours();
     nowMin = nowTime.getMinutes();
@@ -44,80 +30,39 @@ window.setInterval(() => {
 
     time = [nowHour, nowMin, nowSec];
 
-    console.log(time);
+    const timeText = time.map(timeElem => (timeElem < 10 ? '0' + timeElem : String(timeElem)));
 
-    const timeText = time.map(timeElem => {
-        if (timeElem < 10) {
-            return timeElem = '0' + timeElem;
-        } else {
-            return timeElem = String(timeElem);
-        }
-    });
-
-    console.log(timeText);
-
-    if (timeNote == '24') {
-        
-        Hour.textContent = timeText[0];
-        Min.textContent = timeText[1];
-        Sec.textContent = timeText[2];
-    } else if (timeNote == '12') {
-        if(timeText[0] > 12) {
-            Hour.textContent = timeText[0] - 12;
-            if (Hour.textContent < 10) {
-                Hour.textContent = '0' + Hour.textContent;
-            }
-        } else {
-            Hour.textContent = timeText[0];
-        }
-        Min.textContent = timeText[1];
-        Sec.textContent = timeText[2];
+    for (let i = 0; i < timeText.length; i++) {
+        uniTime[i][0] = timeText[i].substring(0, 1);
+        uniTime[i][1] = timeText[i].substring(1, 2);
     }
-}, 1000);
-// console.log(nowHour);
-// console.log(nowMin);
-// console.log(nowSec);
 
-function processTimeUnits(timeString, timeArray, numberArray) {
-    console.log(timeString);
-    timeArray = timeString;
-    console.log(timeArray);
-    numberArray = Number(timeArray);
-    console.log(numberArray);
-    return numberArray;
-}
+    for (let i = 0; i < uniTime.length; i++) {
+        for (let j = 0; j < uniTime[i].length; j++) {
+            unicode[i][j] = uniTime[i][j].codePointAt(0).toString(16);
+        }
+    }
 
-// console.log(String(nowHour));
-// console.log(String(nowMin));
-// console.log(String(nowSec));
-
-// console.log(typeof String(nowHour));
-// console.log(typeof String(nowMin));
-// console.log(typeof String(nowSec));
-
-
-button.addEventListener('click', () => {
-    console.log('click the button!!');
-    processTimeUnits(String(nowHour), hourTime, hourNumber);
-    processTimeUnits(String(nowMin), minTime, minNumber);
-    processTimeUnits(String(nowSec), secTime, secNumber);
-
-    console.log(hourNumber);
-    let unihour = unicode(hourNumber);
-    console.log(unihour);
-});
-
-// console.log(hourTime);
-// console.log(minTime);
-// console.log(secTime);
-
-// console.log(hourNumber);
-// console.log(minNumber);
-// console.log(secNumber);
-
-function unicode(number) {
-    console.log(number);
-    if (number >= 0 && number <= 9) {
-        return 'U+003' + number;
+    if (timeNote === '24') {
+        Hour.textContent = `U+00${unicode[0][0]}U+00${unicode[0][1]}`;
+        Min.textContent = `U+00${unicode[1][0]}U+00${unicode[1][1]}`;
+        Sec.textContent = `U+00${unicode[2][0]}U+00${unicode[2][1]}`;
+    } else if (timeNote === '12') {
+        let displayHour = parseInt(timeText[0]);
+        if (displayHour > 12) {
+            displayHour -= 12;
+        } else if (displayHour === 0) {
+            displayHour = 12; // 真夜中の0時を12時と表示
+        }
+        const displayHourText = displayHour < 10 ? '0' + displayHour : String(displayHour);
+        const hourUnicodeFirst = displayHourText.substring(0, 1).codePointAt(0).toString(16);
+        const hourUnicodeSecond = displayHourText.substring(1, 2).codePointAt(0).toString(16);
+        Hour.textContent = `U+00${hourUnicodeFirst}U+00${hourUnicodeSecond}`;
+        Min.textContent = `U+00${unicode[1][0]}U+00${unicode[1][1]}`;
+        Sec.textContent = `U+00${unicode[2][0]}U+00${unicode[2][1]}`;
     }
 }
+
+// 初回実行とタイマー設定
+updateTime();
+window.setInterval(updateTime, 1000);
