@@ -22,6 +22,10 @@ form,
     height: 40px;
 }
 
+.formContent {
+    margin-top: 10px;
+}
+
 #content {
     grid-column-start: 2;
 }
