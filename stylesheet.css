@@ -40,12 +40,12 @@ input[name="timeNoteIn"] {
 }
 
 p[name="timeInfo"] {
-    font-size: 25px;
+    font-size: 22px;
     font-weight: bold;
 }
 
 #timeSet {
-    font-size: 30px;
+    font-size: 28px;
     font-weight: bold;
 }
 
