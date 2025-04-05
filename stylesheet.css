@@ -1,7 +1,29 @@
+html,
+body {
+    height: 100%;
+}
+
 header {
     width: auto;
     height: 100px;
     background-color: #6495ed;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 275px 1fr;
+    grid-template-rows: 1fr 362px;
+    flex: 1;
+    width: 100%;
+}
+
+form,
+.formContent {
+    height: 40px;
+}
+
+#content {
+    grid-column-start: 2;
 }
 
 input[name="timeNoteIn"] {
@@ -39,4 +61,17 @@ footer {
 
 a {
     color: black;
+}
+
+/* スマホサイズの画面の場合（例：最大幅 767px 以下の場合） */
+@media (max-width: 767px) {
+    p[name="timeInfo"] {
+        font-size: 16px;
+        /* 少し小さくする */
+    }
+
+    #timeSet {
+        font-size: 22px;
+        /* 少し小さくする */
+    }
 }

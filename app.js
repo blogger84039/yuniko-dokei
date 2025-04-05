@@ -44,9 +44,9 @@ function updateTime() {
     }
 
     if (timeNote === '24') {
-        Hour.textContent = `U+00${unicode[0][0]}U+00${unicode[0][1]}`;
-        Min.textContent = `U+00${unicode[1][0]}U+00${unicode[1][1]}`;
-        Sec.textContent = `U+00${unicode[2][0]}U+00${unicode[2][1]}`;
+        Hour.textContent = `U+00${unicode[0][0]}U+00${unicode[0][1]}時`;
+        Min.textContent = `U+00${unicode[1][0]}U+00${unicode[1][1]}分`;
+        Sec.textContent = `U+00${unicode[2][0]}U+00${unicode[2][1]}秒`;
     } else if (timeNote === '12') {
         let displayHour = parseInt(timeText[0]);
         if (displayHour > 12) {
