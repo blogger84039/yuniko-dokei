@@ -57,9 +57,9 @@ function updateTime() {
         const displayHourText = displayHour < 10 ? '0' + displayHour : String(displayHour);
         const hourUnicodeFirst = displayHourText.substring(0, 1).codePointAt(0).toString(16);
         const hourUnicodeSecond = displayHourText.substring(1, 2).codePointAt(0).toString(16);
-        Hour.textContent = `U+00${hourUnicodeFirst}U+00${hourUnicodeSecond}`;
-        Min.textContent = `U+00${unicode[1][0]}U+00${unicode[1][1]}`;
-        Sec.textContent = `U+00${unicode[2][0]}U+00${unicode[2][1]}`;
+        Hour.textContent = `U+00${hourUnicodeFirst}U+00${hourUnicodeSecond}時`;
+        Min.textContent = `U+00${unicode[1][0]}U+00${unicode[1][1]}分`;
+        Sec.textContent = `U+00${unicode[2][0]}U+00${unicode[2][1]}秒`;
     }
 }
 
