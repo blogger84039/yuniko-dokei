@@ -10,6 +10,7 @@ let time = [];
 let timeNoteIn = document.getElementById('timeNote');
 let timeNote = '24'; // 初期値を文字列の '24' にしておくと比較が安全です
 
+const ampmHtml = document.getElementById('ampm');
 const Hour = document.getElementById('Hour');
 const Min = document.getElementById('Min');
 const Sec = document.getElementById('Sec');
@@ -49,14 +50,24 @@ function updateTime() {
         Sec.textContent = `U+00${unicode[2][0]}U+00${unicode[2][1]}秒`;
     } else if (timeNote === '12') {
         let displayHour = parseInt(timeText[0]);
-        if (displayHour > 12) {
-            displayHour -= 12;
-        } else if (displayHour === 0) {
-            displayHour = 12; // 真夜中の0時を12時と表示
+        let ampm = '';
+        if (displayHour < 12) {
+            ampm = 'A.M.';
+            if (displayHour === 0) {
+                displayHour = 12; // 午前0時を12時と表示
+            }
+        } else {
+            ampm = 'P.M.';
+            if (displayHour > 12) {
+                displayHour -= 12;
+            } else if (displayHour === 12) {
+                displayHour = 12; // 午後12時をそのまま12時と表示
+            }
         }
         const displayHourText = displayHour < 10 ? '0' + displayHour : String(displayHour);
         const hourUnicodeFirst = displayHourText.substring(0, 1).codePointAt(0).toString(16);
         const hourUnicodeSecond = displayHourText.substring(1, 2).codePointAt(0).toString(16);
+        ampmHtml.textContent = ampm;
         Hour.textContent = `U+00${hourUnicodeFirst}U+00${hourUnicodeSecond}時`;
         Min.textContent = `U+00${unicode[1][0]}U+00${unicode[1][1]}分`;
         Sec.textContent = `U+00${unicode[2][0]}U+00${unicode[2][1]}秒`;
