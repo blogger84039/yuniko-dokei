@@ -45,6 +45,7 @@ function updateTime() {
     }
 
     if (timeNote === '24') {
+        ampmHtml.textContent = '';
         Hour.textContent = `U+00${unicode[0][0]}U+00${unicode[0][1]}時`;
         Min.textContent = `U+00${unicode[1][0]}U+00${unicode[1][1]}分`;
         Sec.textContent = `U+00${unicode[2][0]}U+00${unicode[2][1]}秒`;
