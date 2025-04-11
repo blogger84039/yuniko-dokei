@@ -1,8 +1,8 @@
 {
-	"name":				"",
-	"short_name":		"",
-	"description":		"",
-	"start_url":		"/",
+	"name":				"ゆにこーどけい",
+	"short_name":		"ゆにこーどけい",
+	"description":		"現在時刻をUnicodeで表示するだけのサイト。作っているときにU+003までは固定だからあんまり面白くないなと思った。もう手遅れ。",
+	"start_url":		"/yuniko-dokei/",
 	"display":			"standalone",
 	"orientation":		"any",
 	"background_color":	"#fff",
