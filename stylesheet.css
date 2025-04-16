@@ -12,14 +12,9 @@ header {
 .container {
     display: grid;
     grid-template-columns: 1fr 275px 1fr;
-    grid-template-rows: 1fr 362px;
+    grid-template-rows: 80px 1fr;
     flex: 1;
     width: 100%;
-}
-
-form,
-.formContent {
-    height: 40px;
 }
 
 .formContent {

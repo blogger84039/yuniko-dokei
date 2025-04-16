@@ -10,6 +10,9 @@ let time = [];
 let timeNoteIn = document.getElementById('timeNote');
 let timeNote = '24'; // 初期値を文字列の '24' にしておくと比較が安全です
 
+const header = document.querySelector('header');
+const footer = document.querySelector('footer');
+
 const ampmHtml = document.getElementById('ampm');
 const Hour = document.getElementById('Hour');
 const Min = document.getElementById('Min');
@@ -78,3 +81,17 @@ function updateTime() {
 // 初回実行とタイマー設定
 updateTime();
 window.setInterval(updateTime, 1000);
+
+
+screen.orientation.addEventListener('change', () => {
+    let orientation = screen.orientation.angle;
+    if (orientation === 90 || orientation === -90) {
+        header.classList.remove('d-flex');
+        header.style.display = 'none';
+        footer.classList.remove('d-flex');
+        footer.style.display = 'none';
+    } else {
+        header.classList.add('d-flex');
+        footer.classList.add('d-flex');
+    };
+});
